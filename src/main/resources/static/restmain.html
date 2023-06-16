@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> 3조의 REST API 실습 </h1>
+<hr>
+<button id="all">둘리와 친구들 보기</button>
+<div id="buttonView"></div>
+<div id="view"></div>
+<script>
+
+    function click(){
+        console.log('click');
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function (){
+            if(xhr.status==200){
+            let obj = JSON.parse(xhr.responseText);
+            console.log(obj);
+            console.log(obj._embedded.comicActorModelList.length);
+            let list = obj._embedded.comicActorModelList;
+
+            let dom = document.getElementById('buttonView');
+                for (let i = 0; i < list.length; i++) {
+                    dom.innerHTML +=`<button onclick="button_click('${list[i]._links.self.href}')">${list[i].name}</button>`;
+                }
+            }
+        }
+        xhr.open('GET','/all', true);
+        xhr.send();
+    }
+    document.getElementById('all').addEventListener('click',click);
+
+
+    function button_click(url){
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function (){
+            if(xhr.status==200){
+                let obj = JSON.parse(xhr.responseText);
+                console.log(obj);
+
+                let dom = document.getElementById('view');
+                dom.innerHTML=`<h3>${obj.name}</h3><br><h3>${obj.addr}</h3><br><img src='http://localhost:8088/images/${obj.image}'>`;
+            }
+        }
+        xhr.open('GET',url,true);
+        xhr.send();
+    }
+
+</script>
+
+</body>
+</html>

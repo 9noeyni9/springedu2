@@ -4,6 +4,6 @@ import springjpa.exam.entity.Emp;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface EmpRepository extends JpaRepository<Emp, Integer>{
+public interface EmpRepository extends JpaRepository<Emp, Integer>{//repository와 타입
 
 }

@@ -16,12 +16,12 @@ import java.util.List;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
-@DataJpaTest
+@DataJpaTest//레포지토리 테스트하는 jpatest
 public class JPA_EmpRepository2Test {
     @Autowired
-    private EmpRepository2 empR;
+    private EmpRepository2 empR;//테스트 메서드
     
-    @BeforeEach()
+    @BeforeEach()//각각 테스트 메서드 수행할 때 마다 내보내기
     void pr() {
     	System.out.println("==========================================================");
     }
@@ -29,7 +29,6 @@ public class JPA_EmpRepository2Test {
     @Test
     @Order(1)
     //@Rollback(false) // rollback이 기본임. DML 문 수행한 후에 rollback 하고싶지 않다면  
-    @Transactional
     void save() {
     	Emp entity = new Emp();
     	entity.setEmpno(1234);
@@ -46,8 +45,8 @@ public class JPA_EmpRepository2Test {
     }
     @Test
     @Order(24)
-    void list() {
-    	List<Emp> list = empR.findAll();
+    void list() {//리턴 결과를 꼭 출력 안 해도 돼
+    	List<Emp> list = empR.findAll();//findAll 얘 제대로 동작하는지 알려면 이 메서드 사용하는 컨트롤러 만들어야 해
     	list.stream().forEach(System.out::println);
     }
    @Test

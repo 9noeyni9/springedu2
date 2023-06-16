@@ -20,7 +20,7 @@ public class VisitorController {
 
 	public VisitorController(VisitorRepository repository) {
 		this.repository = repository;
-	}
+	}//컨트롤러가 객체 생성할 때는 annotation을 지정해주지 않아도 생성자를 통해서 받아오면 Autowired 생성 가능
 	@RequestMapping("/vlist")
 	public ModelAndView list() {
 		List<Visitor> list = null;
@@ -52,7 +52,7 @@ public class VisitorController {
 	}
 
 	@RequestMapping(value = "/vdelete")
-	@Transactional
+	@Transactional//dml명령을 필요로 하는 경우에 트랜잭션 상으로 처리 Transactional 사용 에러없이 수행되면 commit 에러 발생 rollback
 	public ModelAndView delete(int id) {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -68,8 +68,8 @@ public class VisitorController {
 	@RequestMapping(value = "/one", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public Visitor one(int id) {
-		Optional<Visitor> result = repository.findById(id);
-		return result.get();		
+		Optional<Visitor> result = repository.findById(id);//Optional<Visitor>의 객체로 포장해서 return optional객체 안에 visitor 객체 리턴
+		return result.get();//get메서드로 꺼내서 사용해야 해  visitor객체를 꺼내는 게 아니라 optional안에 visitor객체를 return하기 때문에		
 	}
 
 	@RequestMapping(value = "/vinsert", 

@@ -103,7 +103,7 @@ public class MeetingController  {
 	public ModelAndView update(Meeting vo) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			Meeting oldvo = repositoryM.findById(vo.getId()).get();
+			Meeting oldvo = repositoryM.findById(vo.getId()).get();//.get():get메서드 호출이 중요 (optional객체를 return하기 떄문에)
 			oldvo.setName(vo.getName());
 			oldvo.setTitle(vo.getTitle());
 			oldvo.setMeetingDate(vo.getMeetingDate());

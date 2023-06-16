@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReplyRepository extends JpaRepository<Reply, Integer>{
 
-	public List<Reply> findByRefid(Meeting vo);
+	public List<Reply> findByRefid(Meeting vo);//어떤 메인글의 연결되있는 댓글들만 출력하겠다
 	
 }
